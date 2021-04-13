@@ -8,7 +8,11 @@ import useColorScheme from '../hooks/useColorScheme';
 import BrewScreen from '../screens/BrewScreen';
 import BrewsScreen from '../screens/BrewsScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, BrewsParamList, TabTwoParamList } from '../types';
+import {
+  BottomTabParamList,
+  BrewsParamList,
+  TabTwoParamList,
+} from '../types/screens';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 

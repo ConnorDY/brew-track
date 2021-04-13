@@ -4,7 +4,7 @@ import { Container, Content, Fab, Icon, Text } from 'native-base';
 import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { BrewsParamList } from '../types';
+import { BrewsParamList } from '../types/screens';
 
 type SCREEN = 'BrewScreen';
 

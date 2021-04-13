@@ -15,7 +15,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { v4 as uuid } from 'uuid';
 
-import { BrewsParamList } from '../types';
+import { BrewsParamList } from '../types/screens';
 
 interface Brew {
   uuid: string;
