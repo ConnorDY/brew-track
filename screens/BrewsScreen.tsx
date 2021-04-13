@@ -1,3 +1,4 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import {
   Col,
   Container,
@@ -9,9 +10,11 @@ import {
   ListItem,
   Text,
 } from 'native-base';
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { v4 as uuid } from 'uuid';
+
+import { BrewsParamList } from '../types';
 
 interface Brew {
   uuid: string;
@@ -21,7 +24,11 @@ interface Brew {
 
 const DAY_SECONDS = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
 
-export default function BrewsScreen() {
+type BrewsScreenProps = {
+  navigation: StackNavigationProp<BrewsParamList, 'BrewsScreen'>;
+};
+
+const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
   const debug = true;
 
   const [brews, setBrews] = useState<Brew[]>([]);
@@ -49,7 +56,11 @@ export default function BrewsScreen() {
       <Content>
         <List>
           {brews.map(({ uuid, name, creation }) => (
-            <ListItem button key={uuid}>
+            <ListItem
+              button
+              onPress={() => navigation.navigate('BrewScreen', { uuid })}
+              key={uuid}
+            >
               <Grid>
                 <Col>
                   <Text>{name}</Text>
@@ -75,7 +86,9 @@ export default function BrewsScreen() {
       </Fab>
     </Container>
   );
-}
+};
+
+export default BrewsScreen;
 
 const styles = StyleSheet.create({
   //

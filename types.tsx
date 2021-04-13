@@ -10,6 +10,7 @@ export type BottomTabParamList = {
 
 export type BrewsParamList = {
   BrewsScreen: undefined;
+  BrewScreen: { uuid: string };
 };
 
 export type TabTwoParamList = {

@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import BrewScreen from '../screens/BrewScreen';
 import BrewsScreen from '../screens/BrewsScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, BrewsParamList, TabTwoParamList } from '../types';
@@ -62,6 +63,11 @@ function BrewsNavigator() {
         name="BrewsScreen"
         component={BrewsScreen}
         options={{ headerTitle: 'Brews' }}
+      />
+      <BrewsStack.Screen
+        name="BrewScreen"
+        component={BrewScreen}
+        options={{ headerTitle: 'Brew' }}
       />
     </BrewsStack.Navigator>
   );

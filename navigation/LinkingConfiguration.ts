@@ -8,7 +8,8 @@ export default {
         screens: {
           Brews: {
             screens: {
-              BrewsScreen: 'one',
+              BrewsScreen: 'brews',
+              BrewScreen: 'brew',
             },
           },
           TabTwo: {
