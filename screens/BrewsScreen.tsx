@@ -74,8 +74,10 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
   useEffect(() => {
     loadBrews();
 
-    navigation.addListener('focus', () => {
-      loadBrews();
+    setTimeout(() => {
+      navigation.addListener('focus', () => {
+        loadBrews();
+      });
     });
   }, []);
 
@@ -84,15 +86,13 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
     return (newBrew: Brew) => {
       const _brews = brews.set(brewUuid, newBrew);
 
-      console.log('Updating brew.', newBrew);
+      console.info('Updating brew.');
 
       saveBrews(_brews);
     };
   }
 
   const now = new Date().getTime();
-
-  console.log(brews);
 
   return (
     <Container>
