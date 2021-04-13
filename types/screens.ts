@@ -1,3 +1,5 @@
+import Brew from './brew';
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -10,7 +12,7 @@ export type BottomTabParamList = {
 
 export type BrewsParamList = {
   BrewsScreen: undefined;
-  BrewScreen: { uuid: string };
+  BrewScreen: { brew: Brew; updateBrew: (newBrew: Brew) => void };
 };
 
 export type TabTwoParamList = {
