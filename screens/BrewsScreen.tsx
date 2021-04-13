@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
   Col,
@@ -10,7 +11,7 @@ import {
   ListItem,
   Text,
 } from 'native-base';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { v4 as uuid } from 'uuid';
 
@@ -23,6 +24,8 @@ interface Brew {
 }
 
 const DAY_SECONDS = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+
+const BREWS_KEY = '@brews';
 
 type BrewsScreenProps = {
   navigation: StackNavigationProp<BrewsParamList, 'BrewsScreen'>;
@@ -48,6 +51,22 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
   function clearBrews() {
     setBrews([]);
   }
+
+  useEffect(() => {
+    (async () => {
+      const json = await AsyncStorage.getItem(BREWS_KEY);
+      if (json) {
+        const _brews = JSON.parse(json);
+        setBrews(_brews);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await AsyncStorage.setItem(BREWS_KEY, JSON.stringify(brews));
+    })();
+  }, [brews]);
 
   const now = new Date().getTime();
 
