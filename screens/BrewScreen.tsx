@@ -14,10 +14,7 @@ type BrewScreenProps = {
   route: RouteProp<BrewsParamList, Screen>;
 };
 
-const BrewScreen: FunctionComponent<BrewScreenProps> = ({
-  navigation,
-  route,
-}) => {
+const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
   const { updateBrew } = route.params;
 
   const [brew, setBrew] = useState<Brew>(route.params.brew);
@@ -31,10 +28,8 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   }
 
   useEffect(() => {
-    navigation.addListener('beforeRemove', (e) => {
-      updateBrew(brew);
-    });
-  }, [updateBrew, brew, navigation]);
+    updateBrew(brew);
+  }, [brew]);
 
   return (
     <Container>

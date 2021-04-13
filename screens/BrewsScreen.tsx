@@ -60,16 +60,23 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
   }
 
   // load brews
+  async function loadBrews() {
+    console.info('Loading brews...');
+
+    const json = await AsyncStorage.getItem(BREWS_KEY);
+
+    if (json) {
+      setBrews(new Map<string, Brew>(Object.entries(JSON.parse(json))));
+    }
+  }
+
+  // on load
   useEffect(() => {
-    (async () => {
-      console.info('Loading brews...');
+    loadBrews();
 
-      const json = await AsyncStorage.getItem(BREWS_KEY);
-
-      if (json) {
-        setBrews(new Map<string, Brew>(Object.entries(JSON.parse(json))));
-      }
-    })();
+    navigation.addListener('focus', () => {
+      loadBrews();
+    });
   }, []);
 
   // brew updater
@@ -79,7 +86,6 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
 
       console.log('Updating brew.', newBrew);
 
-      setBrews(_brews);
       saveBrews(_brews);
     };
   }
