@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mead-track",
-    "slug": "mead-track",
+    "name": "BrewTrack",
+    "slug": "brew-track",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -25,7 +25,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "link.cdy.brewtrack",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
