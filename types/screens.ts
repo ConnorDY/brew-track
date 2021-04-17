@@ -7,7 +7,7 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
   Brews: undefined;
-  TabTwo: undefined;
+  Ingredients: undefined;
 };
 
 export type BrewsParamList = {
@@ -15,6 +15,6 @@ export type BrewsParamList = {
   BrewScreen: { uuid: string; brew: Brew };
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type IngredientsParamList = {
+  IngredientsScreen: undefined;
 };

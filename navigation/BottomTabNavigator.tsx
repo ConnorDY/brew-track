@@ -7,11 +7,11 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import BrewScreen from '../screens/BrewScreen';
 import BrewsScreen from '../screens/BrewsScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import IngredientsScreen from '../screens/IngredientsScreen';
 import {
   BottomTabParamList,
   BrewsParamList,
-  TabTwoParamList,
+  IngredientsParamList,
 } from '../types/screens';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -35,8 +35,8 @@ export default function BottomTabNavigator() {
       />
 
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Ingredients"
+        component={IngredientsNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
         }}
@@ -77,16 +77,16 @@ function BrewsNavigator() {
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const IngredientsStack = createStackNavigator<IngredientsParamList>();
 
-function TabTwoNavigator() {
+function IngredientsNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <IngredientsStack.Navigator>
+      <IngredientsStack.Screen
+        name="IngredientsScreen"
+        component={IngredientsScreen}
+        options={{ headerTitle: 'Ingredients' }}
       />
-    </TabTwoStack.Navigator>
+    </IngredientsStack.Navigator>
   );
 }
