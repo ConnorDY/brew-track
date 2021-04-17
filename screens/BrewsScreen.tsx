@@ -73,7 +73,7 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
 
                   <Col>
                     <Text>
-                      {((now - creation) / DAY_SECONDS).toFixed(1)} day(s)
+                      {((now - creation) / DAY_SECONDS).toFixed(0)} day(s)
                     </Text>
                   </Col>
                 </Grid>

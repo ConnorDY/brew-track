@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import React, { useEffect } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 
 import { container, Provider } from './ioc';
@@ -24,6 +25,10 @@ export default function App() {
 
   useEffect(() => {
     AppState.addEventListener('change', handleAppStateChange);
+
+    Font.loadAsync({
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    });
 
     return () => {
       AppState.removeEventListener('change', handleAppStateChange);

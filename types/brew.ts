@@ -1,6 +1,8 @@
 export default interface Brew {
+  // brew name
   name: string;
-  creation: number; // unix timestamp
+  // fermentation start date (unix timestamp)
+  creation: number;
 }
 
 export const BREWS_KEY = '@brews';

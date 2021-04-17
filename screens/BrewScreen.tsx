@@ -1,11 +1,23 @@
 import { RouteProp } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Container, Content, Fab, Form, Icon, Input, Item } from 'native-base';
+import {
+  Button,
+  Container,
+  Content,
+  Fab,
+  Form,
+  Icon,
+  Input,
+  Item,
+  Text,
+} from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { useInjection } from '../ioc';
 import { BrewService } from '../services';
+import { formatDate } from '../utils';
 import Brew from '../types/brew';
 import { BrewsParamList } from '../types/screens';
 
@@ -22,12 +34,14 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
   const brewService = useInjection<BrewService>('BrewService');
 
   const [brew, setBrew] = useState<Brew>(route.params.brew);
+  const [showCreationDatePicker, setShowCreationDatePicker] = useState(false);
 
-  const { name } = brew;
-
-  function fieldUpdater(fieldName: keyof Brew): (newValue: string) => void {
+  function fieldUpdater<T>(fieldName: keyof Brew): (newValue: T) => void {
     return (newValue) => {
-      setBrew({ ...brew, [fieldName]: newValue });
+      setBrew({
+        ...brew,
+        [fieldName]: newValue,
+      });
     };
   }
 
@@ -35,6 +49,10 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
   useEffect(() => {
     brewService.updateBrew(uuid, brew);
   }, [brew]);
+
+  const { creation, name } = brew;
+
+  const fermentationStartDate = new Date(creation);
 
   return (
     <Container>
@@ -46,6 +64,24 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
               value={name}
               onChangeText={fieldUpdater('name')}
             />
+          </Item>
+
+          <Item>
+            <Text>Fermenation Start Date: </Text>
+
+            <Button onPress={() => setShowCreationDatePicker(true)}>
+              <Text>{formatDate(fermentationStartDate)}</Text>
+            </Button>
+
+            {showCreationDatePicker && (
+              <DateTimePicker
+                value={fermentationStartDate}
+                onChange={(e, date) => {
+                  setShowCreationDatePicker(false);
+                  if (date) fieldUpdater('creation')(date.getTime());
+                }}
+              />
+            )}
           </Item>
         </Form>
       </Content>
