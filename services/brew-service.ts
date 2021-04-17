@@ -55,6 +55,7 @@ export default class BrewService {
     this._brews.set(uuid(), {
       name: 'Untitled Brew',
       creation: new Date().getTime(),
+      racking: [],
     });
     this.broadcastBrews();
   };
