@@ -71,7 +71,9 @@ function BrewsNavigator() {
       <BrewsStack.Screen
         name="BrewScreen"
         component={BrewScreen}
-        options={{ headerTitle: 'Brew' }}
+        options={({ route }) => ({
+          headerTitle: route.params.brew.name,
+        })}
       />
     </BrewsStack.Navigator>
   );

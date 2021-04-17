@@ -42,6 +42,10 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
 
   function fieldUpdater<T>(fieldName: keyof Brew): (newValue: T) => void {
     return (newValue) => {
+      if (fieldName === 'name') {
+        navigation.setOptions({ headerTitle: (newValue as unknown) as string });
+      }
+
       setBrew({
         ...brew,
         [fieldName]: newValue,
