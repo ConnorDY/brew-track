@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
@@ -146,7 +146,28 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
         </Form>
       </Content>
 
-      <Button danger rounded style={styles.cornerButton} onPress={deleteBrew}>
+      <Button
+        danger
+        rounded
+        style={styles.cornerButton}
+        onPress={() =>
+          Alert.alert(
+            'Are you sure?',
+            'This action cannot be undone.',
+            [
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+              {
+                text: 'Delete Brew',
+                onPress: deleteBrew,
+              },
+            ],
+            { cancelable: true }
+          )
+        }
+      >
         <Icon name="trash" type="Entypo" style={{ color: 'white' }} />
       </Button>
     </Container>
