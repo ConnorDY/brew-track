@@ -1,19 +1,21 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
+import commonColor from '../native-base-theme/variables/commonColor';
+
+const tintColorLight = commonColor.brandPrimary;
+const tintColorDark = commonColor.inverseTextColor;
 
 export default {
   light: {
-    text: '#000',
-    background: '#fff',
+    text: commonColor.textColor,
+    background: commonColor.inverseTextColor,
     tint: tintColorLight,
-    tabIconDefault: '#ccc',
+    tabIconDefault: commonColor.brandLight,
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#fff',
-    background: '#000',
+    text: commonColor.textColor,
+    background: commonColor.inverseTextColor,
     tint: tintColorDark,
-    tabIconDefault: '#ccc',
+    tabIconDefault: commonColor.brandLight,
     tabIconSelected: tintColorDark,
   },
 };
