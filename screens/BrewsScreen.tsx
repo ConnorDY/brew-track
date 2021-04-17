@@ -17,6 +17,7 @@ import { useInjection } from '../ioc';
 import { BrewService } from '../services';
 import Brew, { BrewsMap } from '../types/brew';
 import { BrewsParamList } from '../types/screens';
+import commonColor from '../native-base-theme/variables/commonColor';
 
 const DAY_SECONDS = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
 
@@ -81,7 +82,11 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
         </List>
       </Content>
 
-      <Fab position="bottomRight" onPress={brewService.createBrew}>
+      <Fab
+        position="bottomRight"
+        style={{ backgroundColor: commonColor.brandPrimary }}
+        onPress={brewService.createBrew}
+      >
         <Icon name="plus" type="Entypo" />
       </Fab>
     </Container>

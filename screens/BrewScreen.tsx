@@ -25,6 +25,7 @@ import { BrewService } from '../services';
 import { formatDate } from '../utils';
 import Brew from '../types/brew';
 import { BrewsParamList } from '../types/screens';
+import commonColor from '../native-base-theme/variables/commonColor';
 
 type Screen = 'BrewScreen';
 
@@ -146,7 +147,11 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
         </Form>
       </Content>
 
-      <Fab position="bottomRight" onPress={deleteBrew}>
+      <Fab
+        position="bottomRight"
+        style={{ backgroundColor: commonColor.brandDanger }}
+        onPress={deleteBrew}
+      >
         <Icon name="trash" type="Entypo" />
       </Fab>
     </Container>
@@ -191,7 +196,7 @@ const Racking = ({
       </Body>
 
       <Right>
-        <Button icon transparent onPress={onDelete}>
+        <Button icon danger transparent onPress={onDelete}>
           <Icon active name="trash" type="Entypo" />
         </Button>
       </Right>
