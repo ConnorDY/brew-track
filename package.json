@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "publish-privacy-policy": "gh-pages -d privacy-policy"
   },
   "jest": {
     "preset": "jest-expo"
@@ -45,6 +46,7 @@
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@types/uuid": "^8.3.0",
+    "gh-pages": "^3.1.0",
     "jest-expo": "~40.0.0",
     "typescript": "~4.0.0"
   },
