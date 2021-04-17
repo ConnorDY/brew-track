@@ -7,6 +7,8 @@ export default interface Brew {
   racking: number[];
   // photos
   photos: string[];
+  // main photo
+  mainPhoto?: string;
 }
 
 export const BREWS_KEY = '@brews';

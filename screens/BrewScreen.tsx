@@ -18,6 +18,7 @@ import {
   Right,
   Text,
   Thumbnail,
+  View,
 } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -27,6 +28,7 @@ import { formatDate } from '../utils';
 import Brew from '../types/brew';
 import { BrewsParamList } from '../types/screens';
 import { cornerButton } from '../constants/Styles';
+import commonColor from '../native-base-theme/variables/commonColor';
 
 type Screen = 'BrewScreen';
 
@@ -53,7 +55,7 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   const [showCreationDatePicker, setShowCreationDatePicker] = useState(false);
 
   // destructure brew properties
-  const { creation, name, photos, racking } = brew;
+  const { creation, mainPhoto, name, photos, racking } = brew;
 
   // convert unit timestamp to Date
   const fermentationStartDate = new Date(creation);
@@ -106,6 +108,10 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
         fieldUpdater('photos')([...brew.photos, newPhoto]);
       },
     });
+  }
+
+  function setMainPhoto(photoId: string | undefined) {
+    fieldUpdater('mainPhoto')(photoId);
   }
 
   return (
@@ -165,12 +171,29 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
 
           <Item style={styles.nonStandardFormItem}>
             {photos.map((photo) => (
-              <Thumbnail
-                square
-                large
-                source={{ uri: `${photosDir}${photo}` }}
+              <Button
+                transparent
+                onPress={() =>
+                  setMainPhoto(mainPhoto != photo ? photo : undefined)
+                }
+                style={{ width: 80, height: 80 }}
                 key={photo}
-              />
+              >
+                <View style={styles.photoContainer}>
+                  <Thumbnail
+                    square
+                    large
+                    source={{ uri: `${photosDir}${photo}` }}
+                  />
+                  {photo === mainPhoto && (
+                    <Icon
+                      name="checkmark-circle-outline"
+                      type="Ionicons"
+                      style={styles.photoCheck}
+                    />
+                  )}
+                </View>
+              </Button>
             ))}
           </Item>
 
@@ -260,6 +283,15 @@ const styles = StyleSheet.create({
   nonStandardFormItem: {
     paddingTop: 12,
     paddingBottom: 12,
+  },
+  photoContainer: {
+    flex: 1,
+  },
+  photoCheck: {
+    position: 'absolute',
+    top: 3,
+    right: 3,
+    color: commonColor.brandSuccess,
   },
   cornerButton,
 });
