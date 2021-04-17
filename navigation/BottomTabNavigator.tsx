@@ -38,7 +38,9 @@ export default function BottomTabNavigator() {
         name="Ingredients"
         component={IngredientsNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="document-text-outline" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
