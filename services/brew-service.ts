@@ -63,4 +63,9 @@ export default class BrewService {
     this._brews.set(uuid, brew);
     this.broadcastBrews();
   };
+
+  public deleteBrew = (uuid: string) => {
+    this._brews.delete(uuid);
+    this.broadcastBrews();
+  };
 }

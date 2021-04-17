@@ -27,8 +27,6 @@ type BrewsScreenProps = {
 };
 
 const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
-  const debug = true;
-
   const brewService = useInjection<BrewService>('BrewService');
 
   const [brews, setBrews] = useState<BrewsMap>(new Map<string, Brew>());
@@ -85,10 +83,6 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
 
       <Fab position="bottomRight" onPress={brewService.createBrew}>
         <Icon name="plus" type="Entypo" />
-      </Fab>
-
-      <Fab position="bottomLeft" onPress={brewService.clearBrews}>
-        <Icon name="trash" type="Entypo" />
       </Fab>
     </Container>
   );

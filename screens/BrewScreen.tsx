@@ -28,7 +28,10 @@ type BrewScreenProps = {
   route: RouteProp<BrewsParamList, Screen>;
 };
 
-const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
+const BrewScreen: FunctionComponent<BrewScreenProps> = ({
+  navigation,
+  route,
+}) => {
   const { uuid } = route.params;
 
   const brewService = useInjection<BrewService>('BrewService');
@@ -43,6 +46,11 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
         [fieldName]: newValue,
       });
     };
+  }
+
+  function deleteBrew() {
+    brewService.deleteBrew(uuid);
+    navigation.goBack();
   }
 
   // update brew
@@ -86,7 +94,7 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
         </Form>
       </Content>
 
-      <Fab position="bottomRight">
+      <Fab position="bottomRight" onPress={deleteBrew}>
         <Icon name="trash" type="Entypo" />
       </Fab>
     </Container>
