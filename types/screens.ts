@@ -12,7 +12,8 @@ export type BottomTabParamList = {
 
 export type BrewsParamList = {
   BrewsScreen: undefined;
-  BrewScreen: { uuid: string; brew: Brew };
+  BrewScreen: { id: string; brew: Brew };
+  CameraScreen: { brewId: string; addPhoto: (newPhoto: string) => void };
 };
 
 export type IngredientsParamList = {

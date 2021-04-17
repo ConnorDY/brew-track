@@ -5,6 +5,8 @@ export default interface Brew {
   creation: number;
   // racking dates (unix timestamps)
   racking: number[];
+  // photos
+  photos: string[];
 }
 
 export const BREWS_KEY = '@brews';

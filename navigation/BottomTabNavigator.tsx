@@ -7,6 +7,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import BrewScreen from '../screens/BrewScreen';
 import BrewsScreen from '../screens/BrewsScreen';
+import CameraScreen from '../screens/CameraScreen';
 import IngredientsScreen from '../screens/IngredientsScreen';
 import {
   BottomTabParamList,
@@ -68,12 +69,19 @@ function BrewsNavigator() {
         component={BrewsScreen}
         options={{ headerTitle: 'Brews' }}
       />
+
       <BrewsStack.Screen
         name="BrewScreen"
         component={BrewScreen}
         options={({ route }) => ({
           headerTitle: route.params.brew.name,
         })}
+      />
+
+      <BrewsStack.Screen
+        name="CameraScreen"
+        component={CameraScreen}
+        options={{ headerTitle: 'Add Photo to Brew' }}
       />
     </BrewsStack.Navigator>
   );

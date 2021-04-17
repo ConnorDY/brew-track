@@ -51,7 +51,7 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
     <Container>
       <Content>
         <List>
-          {Array.from(brews).map(([uuid, brew]) => {
+          {Array.from(brews).map(([id, brew]) => {
             const { name, creation } = brew;
 
             return (
@@ -59,11 +59,11 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
                 button
                 onPress={() =>
                   navigation.navigate('BrewScreen', {
-                    uuid,
+                    id,
                     brew,
                   })
                 }
-                key={uuid}
+                key={id}
               >
                 <Grid>
                   <Col>

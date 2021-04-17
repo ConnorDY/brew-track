@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
+import * as FileSystem from 'expo-file-system';
 import {
   Body,
   Button,
@@ -16,6 +17,7 @@ import {
   ListItem,
   Right,
   Text,
+  Thumbnail,
 } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -37,8 +39,11 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   navigation,
   route,
 }) => {
-  // get brew uuid
-  const { uuid } = route.params;
+  // destructure route param(s)
+  const { id } = route.params;
+
+  // get photos dir
+  const photosDir = FileSystem.documentDirectory;
 
   // inject brew service
   const brewService = useInjection<BrewService>('BrewService');
@@ -48,14 +53,14 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   const [showCreationDatePicker, setShowCreationDatePicker] = useState(false);
 
   // destructure brew properties
-  const { creation, name, racking } = brew;
+  const { creation, name, photos, racking } = brew;
 
   // convert unit timestamp to Date
   const fermentationStartDate = new Date(creation);
 
   // update brew whenever it changes
   useEffect(() => {
-    brewService.updateBrew(uuid, brew);
+    brewService.updateBrew(id, brew);
   }, [brew]);
 
   // functions
@@ -75,7 +80,7 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   }
 
   function deleteBrew() {
-    brewService.deleteBrew(uuid);
+    brewService.deleteBrew(id);
     navigation.goBack();
   }
 
@@ -93,6 +98,15 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   function deleteRacking(index: number) {
     racking.splice(index, 1);
     fieldUpdater('racking')(racking);
+  }
+
+  function addPhoto() {
+    navigation.navigate('CameraScreen', {
+      brewId: id,
+      addPhoto: (newPhoto) => {
+        setBrew({ ...brew, photos: [...brew.photos, newPhoto] });
+      },
+    });
   }
 
   return (
@@ -122,6 +136,7 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
             )}
           </Item>
 
+          {/* Racking Date(s) */}
           <Item fixedLabel style={styles.nonStandardFormItem}>
             <Label>Racking</Label>
           </Item>
@@ -141,6 +156,28 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
           <Item style={styles.nonStandardFormItem}>
             <Button onPress={addRacking}>
               <Text>Add Racking Date</Text>
+            </Button>
+          </Item>
+
+          {/* Photos */}
+          <Item fixedLabel style={styles.nonStandardFormItem}>
+            <Label>Photos</Label>
+          </Item>
+
+          <Item style={styles.nonStandardFormItem}>
+            {photos.map((photo) => (
+              <Thumbnail
+                square
+                large
+                source={{ uri: `${photosDir}${photo}` }}
+                key={photo}
+              />
+            ))}
+          </Item>
+
+          <Item style={styles.nonStandardFormItem}>
+            <Button onPress={addPhoto}>
+              <Text>Add Photo</Text>
             </Button>
           </Item>
         </Form>

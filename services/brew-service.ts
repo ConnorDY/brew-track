@@ -56,17 +56,18 @@ export default class BrewService {
       name: 'Untitled Brew',
       creation: new Date().getTime(),
       racking: [],
+      photos: [],
     });
     this.broadcastBrews();
   };
 
-  public updateBrew = (uuid: string, brew: Brew) => {
-    this._brews.set(uuid, brew);
+  public updateBrew = (id: string, brew: Brew) => {
+    this._brews.set(id, brew);
     this.broadcastBrews();
   };
 
-  public deleteBrew = (uuid: string) => {
-    this._brews.delete(uuid);
+  public deleteBrew = (id: string) => {
+    this._brews.delete(id);
     this.broadcastBrews();
   };
 }
