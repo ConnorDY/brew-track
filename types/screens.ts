@@ -12,7 +12,7 @@ export type BottomTabParamList = {
 
 export type BrewsParamList = {
   BrewsScreen: undefined;
-  BrewScreen: { brew: Brew; updateBrew: (newBrew: Brew) => void };
+  BrewScreen: { uuid: string; brew: Brew };
 };
 
 export type TabTwoParamList = {

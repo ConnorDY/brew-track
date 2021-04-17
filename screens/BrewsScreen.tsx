@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
   Col,
@@ -13,9 +12,10 @@ import {
 } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { v4 as uuid } from 'uuid';
+import { useInjection } from '../ioc';
+import { BrewService } from '../services';
 
-import Brew, { BrewsMap, BREWS_KEY } from '../types/brew';
+import Brew, { BrewsMap } from '../types/brew';
 import { BrewsParamList } from '../types/screens';
 
 const DAY_SECONDS = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
@@ -29,68 +29,22 @@ type BrewsScreenProps = {
 const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
   const debug = true;
 
+  const brewService = useInjection<BrewService>('BrewService');
+
   const [brews, setBrews] = useState<BrewsMap>(new Map<string, Brew>());
-
-  // create brew
-  function createBrew() {
-    const _brews = new Map<string, Brew>(
-      brews.set(uuid(), {
-        name: 'Untitled Brew',
-        creation: new Date().getTime(),
-      })
-    );
-
-    setBrews(_brews);
-    saveBrews(_brews);
-  }
-
-  // clear brews
-  function clearBrews() {
-    const _brews = new Map<string, Brew>();
-
-    setBrews(_brews);
-    saveBrews(_brews);
-  }
-
-  // save brews
-  function saveBrews(brews: BrewsMap) {
-    console.info('Saving brews...');
-
-    AsyncStorage.setItem(BREWS_KEY, JSON.stringify(Object.fromEntries(brews)));
-  }
-
-  // load brews
-  async function loadBrews() {
-    console.info('Loading brews...');
-
-    const json = await AsyncStorage.getItem(BREWS_KEY);
-
-    if (json) {
-      setBrews(new Map<string, Brew>(Object.entries(JSON.parse(json))));
-    }
-  }
 
   // on load
   useEffect(() => {
-    loadBrews();
-
-    setTimeout(() => {
-      navigation.addListener('focus', () => {
-        loadBrews();
-      });
+    const brewsSub = brewService.brews.subscribe({
+      next: (b) => {
+        setBrews(b);
+      },
     });
-  }, []);
 
-  // brew updater
-  function brewUpdater(brewUuid: string) {
-    return (newBrew: Brew) => {
-      const _brews = brews.set(brewUuid, newBrew);
-
-      console.info('Updating brew.');
-
-      saveBrews(_brews);
+    return () => {
+      brewsSub.unsubscribe();
     };
-  }
+  }, []);
 
   const now = new Date().getTime();
 
@@ -106,8 +60,8 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
                 button
                 onPress={() =>
                   navigation.navigate('BrewScreen', {
+                    uuid,
                     brew,
-                    updateBrew: brewUpdater(uuid),
                   })
                 }
                 key={uuid}
@@ -129,11 +83,11 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
         </List>
       </Content>
 
-      <Fab position="bottomRight" onPress={createBrew}>
+      <Fab position="bottomRight" onPress={brewService.createBrew}>
         <Icon name="plus" type="Entypo" />
       </Fab>
 
-      <Fab position="bottomLeft" onPress={clearBrews}>
+      <Fab position="bottomLeft" onPress={brewService.clearBrews}>
         <Icon name="trash" type="Entypo" />
       </Fab>
     </Container>

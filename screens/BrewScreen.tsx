@@ -4,6 +4,8 @@ import { Container, Content, Fab, Form, Icon, Input, Item } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
+import { useInjection } from '../ioc';
+import { BrewService } from '../services';
 import Brew from '../types/brew';
 import { BrewsParamList } from '../types/screens';
 
@@ -15,7 +17,9 @@ type BrewScreenProps = {
 };
 
 const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
-  const { updateBrew } = route.params;
+  const { uuid } = route.params;
+
+  const brewService = useInjection<BrewService>('BrewService');
 
   const [brew, setBrew] = useState<Brew>(route.params.brew);
 
@@ -27,8 +31,9 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({ route }) => {
     };
   }
 
+  // update brew
   useEffect(() => {
-    updateBrew(brew);
+    brewService.updateBrew(uuid, brew);
   }, [brew]);
 
   return (
