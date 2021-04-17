@@ -13,8 +13,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Button, Container, Text, View } from 'native-base';
 import { v4 as uuid } from 'uuid';
 
-import { useInjection } from '../ioc';
-import { BrewService } from '../services';
 import { BrewsParamList } from '../types/screens';
 
 type Screen = 'CameraScreen';
@@ -28,11 +26,8 @@ const CameraScreen: FunctionComponent<CameraScreenProps> = ({
   navigation,
   route,
 }) => {
-  // destructure route params
-  const { addPhoto, brewId } = route.params;
-
-  // inject brew service
-  const brewService = useInjection<BrewService>('BrewService');
+  // destructure route param(s)
+  const { addPhoto } = route.params;
 
   // camera ref
   const camera = useRef<Camera>(null);

@@ -102,9 +102,8 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
 
   function addPhoto() {
     navigation.navigate('CameraScreen', {
-      brewId: id,
       addPhoto: (newPhoto) => {
-        setBrew({ ...brew, photos: [...brew.photos, newPhoto] });
+        fieldUpdater('photos')([...brew.photos, newPhoto]);
       },
     });
   }
