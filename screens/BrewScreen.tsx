@@ -1,3 +1,5 @@
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
@@ -16,8 +18,6 @@ import {
   Right,
   Text,
 } from 'native-base';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { useInjection } from '../ioc';

@@ -1,3 +1,5 @@
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
   Col,
@@ -10,11 +12,9 @@ import {
   ListItem,
   Text,
 } from 'native-base';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+
 import { useInjection } from '../ioc';
 import { BrewService } from '../services';
-
 import Brew, { BrewsMap } from '../types/brew';
 import { BrewsParamList } from '../types/screens';
 
