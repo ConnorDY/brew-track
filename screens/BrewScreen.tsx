@@ -53,6 +53,11 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
   // convert unit timestamp to Date
   const fermentationStartDate = new Date(creation);
 
+  // update brew whenever it changes
+  useEffect(() => {
+    brewService.updateBrew(uuid, brew);
+  }, [brew]);
+
   // functions
   function fieldUpdater<T>(fieldName: keyof Brew): (newValue: T) => void {
     return (newValue) => {
@@ -89,11 +94,6 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
     racking.splice(index, 1);
     fieldUpdater('racking')(racking);
   }
-
-  // update brew whenever it changes
-  useEffect(() => {
-    brewService.updateBrew(uuid, brew);
-  }, [brew]);
 
   return (
     <Container>
