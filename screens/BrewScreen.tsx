@@ -7,7 +7,6 @@ import {
   Button,
   Container,
   Content,
-  Fab,
   Form,
   Icon,
   Input,
@@ -25,7 +24,7 @@ import { BrewService } from '../services';
 import { formatDate } from '../utils';
 import Brew from '../types/brew';
 import { BrewsParamList } from '../types/screens';
-import commonColor from '../native-base-theme/variables/commonColor';
+import { cornerButton } from '../constants/Styles';
 
 type Screen = 'BrewScreen';
 
@@ -147,13 +146,9 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
         </Form>
       </Content>
 
-      <Fab
-        position="bottomRight"
-        style={{ backgroundColor: commonColor.brandDanger }}
-        onPress={deleteBrew}
-      >
-        <Icon name="trash" type="Entypo" />
-      </Fab>
+      <Button danger rounded style={styles.cornerButton} onPress={deleteBrew}>
+        <Icon name="trash" type="Entypo" style={{ color: 'white' }} />
+      </Button>
     </Container>
   );
 };
@@ -197,7 +192,7 @@ const Racking = ({
 
       <Right>
         <Button icon danger transparent onPress={onDelete}>
-          <Icon active name="trash" type="Entypo" />
+          <Icon name="trash" type="Entypo" />
         </Button>
       </Right>
     </ListItem>
@@ -209,4 +204,5 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
+  cornerButton,
 });

@@ -2,10 +2,10 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
+  Button,
   Col,
   Container,
   Content,
-  Fab,
   Grid,
   Icon,
   List,
@@ -17,7 +17,7 @@ import { useInjection } from '../ioc';
 import { BrewService } from '../services';
 import Brew, { BrewsMap } from '../types/brew';
 import { BrewsParamList } from '../types/screens';
-import commonColor from '../native-base-theme/variables/commonColor';
+import { cornerButton } from '../constants/Styles';
 
 const DAY_SECONDS = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
 
@@ -82,13 +82,14 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
         </List>
       </Content>
 
-      <Fab
-        position="bottomRight"
-        style={{ backgroundColor: commonColor.brandPrimary }}
+      <Button
+        primary
+        rounded
+        style={styles.cornerButton}
         onPress={brewService.createBrew}
       >
-        <Icon name="plus" type="Entypo" />
-      </Fab>
+        <Icon name="plus" type="Entypo" style={{ color: 'white' }} />
+      </Button>
     </Container>
   );
 };
@@ -96,5 +97,5 @@ const BrewsScreen: FunctionComponent<BrewsScreenProps> = ({ navigation }) => {
 export default BrewsScreen;
 
 const styles = StyleSheet.create({
-  //
+  cornerButton,
 });
