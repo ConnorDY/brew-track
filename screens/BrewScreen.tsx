@@ -9,6 +9,7 @@ import {
   Icon,
   Input,
   Item,
+  Label,
   Text,
 } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
@@ -66,18 +67,15 @@ const BrewScreen: FunctionComponent<BrewScreenProps> = ({
     <Container>
       <Content>
         <Form>
-          <Item>
-            <Input
-              placeholder="Brew name or title"
-              value={name}
-              onChangeText={fieldUpdater('name')}
-            />
+          <Item fixedLabel>
+            <Label>Brew Name:</Label>
+            <Input value={name} onChangeText={fieldUpdater('name')} />
           </Item>
 
           <Item>
-            <Text>Fermenation Start Date: </Text>
+            <Label>Fermenation Start Date:</Label>
 
-            <Button onPress={() => setShowCreationDatePicker(true)}>
+            <Button transparent onPress={() => setShowCreationDatePicker(true)}>
               <Text>{formatDate(fermentationStartDate)}</Text>
             </Button>
 
